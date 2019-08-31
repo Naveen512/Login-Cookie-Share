@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-CookieShareApp.MVC-ACED57E2-F561-4229-AD86-624906BB3C2A</UserSecretsId>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+    <Folder Include="wwwroot\Ring\" />
+  </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Copy Condition="'$(Configuration)'=='Debug'" SourceFiles=".\wwwroot\app_offline.htm" DestinationFolder=".\"></Copy>
+  </Target>
+  <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
+    <Delete Condition="'$(Configuration)'=='Debug'" Files="app_offline.htm"></Delete>
+  </Target>
+</Project>
