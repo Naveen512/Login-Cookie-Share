@@ -61,9 +61,15 @@ namespace CookieShareApp.Api
             });
 
             services.AddAuthentication("Identity.Application")
-                .AddCookie("Identity.Application", option => {
-                    
+                .AddCookie("Identity.Application", option =>
+                {
+
                     option.Cookie.Name = ".AspNet.SharedCookie";
+                    option.Events.OnRedirectToLogin = (context) =>
+                    {
+                        context.Response.StatusCode = 401;
+                        return Task.CompletedTask;
+                    };
                 });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
